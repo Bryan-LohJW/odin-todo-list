@@ -1,6 +1,6 @@
 import Todo from './todo';
-import { addTodo, removeTodo} from './project';
-import Project from './project';
+import {Project, addTodo, removeTodo, addProject, removeProject} from './project';
+import {baseline, projectPopulate} from './domhandler';
 
 let todo = new Todo('title', 'desc', 'date', 'prio');
 let todo2 = new Todo('title1', 'desc', 'date', 'prio');
@@ -13,9 +13,14 @@ addTodo(project, todo2);
 addTodo(project, todo3);
 addTodo(project, todo4);
 
+addProject(project);
+
 removeTodo(project, 'title2');
 
 console.log(project.todoList[0]);
 console.log(project.todoList[1]);
 console.log(project.todoList[2]);
 console.log(project.todoList[3]);
+
+baseline();
+projectPopulate();

@@ -1,6 +1,7 @@
 import Todo from './todo';
 import {Project, addTodo, removeTodo, ProjectList} from './project';
 import {baseline, projectPopulate, todoPopulate} from './domhandler';
+import './style.css';
 
 let todo = new Todo('title', 'desc', 'date', 'prio');
 let todo2 = new Todo('title1', 'desc', 'date', 'prio');

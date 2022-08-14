@@ -18,98 +18,205 @@ export const baseline = () => {
     body.appendChild(content);
 }
 
-export const projectPopulate = (pList) => {
+export const addSingleProject = (project) => {
     const projects = document.querySelector('#project-holder');
-    while(projects.firstChild) {
-        projects.removeChild(projects.firstChild);
-    }
+    
+    const projectDiv = document.createElement('div');
+    projectDiv.classList.add('project');
 
-    for(let i = 0; i < pList.projectList.length; i++) {
-        const project = document.createElement('div');
-        project.classList.add('project');
+    const name = document.createElement('h2');
+    name.classList.add('project-name');
+    name.innerHTML = `${project.name} - (${project.todoList.length})`;
 
-        const name = document.createElement('h2');
-        name.classList.add('project-name');
-        name.innerHTML = `${pList.projectList[i].name} - (${pList.projectList[i].todoList.length})`;
+    const del = document.createElement('div');
+    del.classList.add('project-del');
+    del.innerHTML = '(X)';
+    del.addEventListener('click', function() {pList.projectList.splice(i,1) 
+        projectPopulate(pList) 
+        todoPopulate(pList.projectList[0])}); //refactor
+    
+    projectDiv.appendChild(name);
+    projectDiv.appendChild(del);
+    projects.appendChild(projectDiv);
+    name.addEventListener('click', function() {todoPopulate(pList.projectList[i])}); //refactor
+        
+}
 
-        const del = document.createElement('div');
-        del.classList.add('project-del');
-        del.innerHTML = '(X)';
-        del.addEventListener('click', function() {pList.projectList.splice(i,1) 
-            projectPopulate(pList) 
-            todoPopulate(pList.projectList[0])});
-
-        project.appendChild(name);
-        project.appendChild(del);
-        projects.appendChild(project);
-        name.addEventListener('click', function() {todoPopulate(pList.projectList[i])});
-    }
+export const addProjectAdder = () => {
+    const projects = document.querySelector('#project-holder');
     const addProj = document.createElement('div');
     addProj.setAttribute('id', 'add-project');
     addProj.innerHTML = '(+)';
     projects.appendChild(addProj);
-    addProj.addEventListener('click', function(){newProject()});
+    addProj.addEventListener('click', function(){newProject()}); //refactor
 }
 
-export const todoPopulate = (project) => {
+export const clearProjects = () => {
+    const projects = document.querySelector('#project-holder');
+    while(projects.firstChild) {
+        projects.removeChild(projects.firstChild);
+    }
+}
+
+export const addSingleTodo = (todo) => {
+    const todos = document.querySelector('#todo-holder');
+
+    const todoDiv = document.createElement('div');
+    todoDiv.classList.add('todo');
+
+    const check = document.createElement('input');
+    check.classList.add('check');
+    check.setAttribute('type', 'checkbox');
+
+    const title = document.createElement('p');
+    title.classList.add('title');
+    title.innerHTML = todo.title;
+
+    const description = document.createElement('p');
+    description.classList.add('description');
+    description.innerHTML = todo.description;
+
+    const date = document.createElement('p');
+    date.classList.add('date');
+    date.innerHTML = todo.dueDate;
+
+    const priority = document.createElement('p');
+    priority.classList.add('priority');
+    priority.innerHTML = todo.priority;
+
+    const edit = document.createElement('div');
+    edit.classList.add('todo-edit');
+    edit.innerHTML = 'Edit';
+    edit.addEventListener('click', function() {alert(`${todo.title}`)}); //refactor
+
+    const color = todo.color;
+    if(color ==='black') {
+        todo.classList.add('border-black');
+    } else if (color === 'blue') {
+        todo.classList.add('border-blue');
+    } else if (color === 'red') {
+        todo.classList.add('border-red');
+    }
+
+    todoDiv.appendChild(check);
+    todoDiv.appendChild(title);
+    todoDiv.appendChild(description);
+    todoDiv.appendChild(date);
+    todoDiv.appendChild(priority);
+    todoDiv.appendChild(edit);
+    todos.appendChild(todoDiv);
+
+}
+
+export const addTodoAdder = () => {
+    const todos = document.querySelector('#todo-holder');
+    const addTodo = document.createElement('div');
+    addTodo.setAttribute('id', 'add-todo');
+    addTodo.innerHTML = '(+)';
+    addTodo.addEventListener('click', function() {newTodo(project)}) //refactor
+    todos.appendChild(addTodo);
+}
+
+export const clearTodos = () => {
     const todos = document.querySelector('#todo-holder');
     while(todos.firstChild) {
         todos.removeChild(todos.firstChild);
     }
-    for(let i = 0; i < project.todoList.length; i++) {
-        const todo = document.createElement('div');
-        todo.classList.add('todo');
-
-        const check = document.createElement('input');
-        check.classList.add('check');
-        check.setAttribute('type', 'checkbox');
-
-        const title = document.createElement('p');
-        title.classList.add('title');
-        title.innerHTML = project.todoList[i].title;
-
-        const description = document.createElement('p');
-        description.classList.add('description');
-        description.innerHTML = project.todoList[i].description;
-
-        const date = document.createElement('p');
-        date.classList.add('date');
-        date.innerHTML = project.todoList[i].dueDate;
-
-        const priority = document.createElement('p');
-        priority.classList.add('priority');
-        priority.innerHTML = project.todoList[i].priority;
-
-        const edit = document.createElement('div');
-        edit.classList.add('todo-edit');
-        edit.innerHTML = 'Edit';
-        edit.addEventListener('click', function() {alert(`${project.todoList[i].title}`)});
-
-        const color = project.todoList[i].color;
-        if(color ==='black') {
-            todo.classList.add('border-black');
-        } else if (color === 'blue') {
-            todo.classList.add('border-blue');
-        } else if (color === 'red') {
-            todo.classList.add('border-red');
-        }
-
-        todo.appendChild(check);
-        todo.appendChild(title);
-        todo.appendChild(description);
-        todo.appendChild(date);
-        todo.appendChild(priority);
-        todo.appendChild(edit);
-        todos.appendChild(todo);
-    }
-    const addTodo = document.createElement('div');
-    addTodo.setAttribute('id', 'add-todo');
-    addTodo.innerHTML = '(+)';
-    addTodo.addEventListener('click', function() {newTodo(project)})
-    todos.appendChild(addTodo);
 }
 
-export const newProject = () => {
+
+// export const projectPopulate = (pList) => {
+//     const projects = document.querySelector('#project-holder');
+//     while(projects.firstChild) {
+//         projects.removeChild(projects.firstChild);
+//     }
+
+//     for(let i = 0; i < pList.projectList.length; i++) {
+//         const project = document.createElement('div');
+//         project.classList.add('project');
+
+//         const name = document.createElement('h2');
+//         name.classList.add('project-name');
+//         name.innerHTML = `${pList.projectList[i].name} - (${pList.projectList[i].todoList.length})`;
+
+//         const del = document.createElement('div');
+//         del.classList.add('project-del');
+//         del.innerHTML = '(X)';
+//         del.addEventListener('click', function() {pList.projectList.splice(i,1) 
+//             projectPopulate(pList) 
+//             todoPopulate(pList.projectList[0])});
+
+//         project.appendChild(name);
+//         project.appendChild(del);
+//         projects.appendChild(project);
+//         name.addEventListener('click', function() {todoPopulate(pList.projectList[i])});
+//     }
+//     const addProj = document.createElement('div');
+//     addProj.setAttribute('id', 'add-project');
+//     addProj.innerHTML = '(+)';
+//     projects.appendChild(addProj);
+//     addProj.addEventListener('click', function(){newProject()});
+// }
+
+// export const todoPopulate = (project) => {
+//     const todos = document.querySelector('#todo-holder');
+//     while(todos.firstChild) {
+//         todos.removeChild(todos.firstChild);
+//     }
+//     for(let i = 0; i < project.todoList.length; i++) {
+//         const todo = document.createElement('div');
+//         todo.classList.add('todo');
+
+//         const check = document.createElement('input');
+//         check.classList.add('check');
+//         check.setAttribute('type', 'checkbox');
+
+//         const title = document.createElement('p');
+//         title.classList.add('title');
+//         title.innerHTML = project.todoList[i].title;
+
+//         const description = document.createElement('p');
+//         description.classList.add('description');
+//         description.innerHTML = project.todoList[i].description;
+
+//         const date = document.createElement('p');
+//         date.classList.add('date');
+//         date.innerHTML = project.todoList[i].dueDate;
+
+//         const priority = document.createElement('p');
+//         priority.classList.add('priority');
+//         priority.innerHTML = project.todoList[i].priority;
+
+//         const edit = document.createElement('div');
+//         edit.classList.add('todo-edit');
+//         edit.innerHTML = 'Edit';
+//         edit.addEventListener('click', function() {alert(`${project.todoList[i].title}`)});
+
+//         const color = project.todoList[i].color;
+//         if(color ==='black') {
+//             todo.classList.add('border-black');
+//         } else if (color === 'blue') {
+//             todo.classList.add('border-blue');
+//         } else if (color === 'red') {
+//             todo.classList.add('border-red');
+//         }
+
+//         todo.appendChild(check);
+//         todo.appendChild(title);
+//         todo.appendChild(description);
+//         todo.appendChild(date);
+//         todo.appendChild(priority);
+//         todo.appendChild(edit);
+//         todos.appendChild(todo);
+//     }
+//     const addTodo = document.createElement('div');
+//     addTodo.setAttribute('id', 'add-todo');
+//     addTodo.innerHTML = '(+)';
+//     addTodo.addEventListener('click', function() {newTodo(project)})
+//     todos.appendChild(addTodo);
+// }
+
+export const newProjectInterface = () => {
     const body = document.querySelector('body');
 
     const background = document.createElement('div');
@@ -129,7 +236,7 @@ export const newProject = () => {
     const projectNameSubmit = document.createElement('button');
     projectNameSubmit.setAttribute('type', 'submit');
     projectNameSubmit.innerHTML = 'Create';
-    projectNameSubmit.addEventListener('click', function() {projectSubmit(projectList)});
+    projectNameSubmit.addEventListener('click', function() {projectSubmit(projectList)}); //refactor
 
     projectInterface.appendChild(projectName);
     projectInterface.appendChild(projectNameSubmit);
@@ -137,7 +244,7 @@ export const newProject = () => {
     body.insertBefore(background, body.firstChild);
 }
 
-export const newTodo = (project) => {
+export const newTodoInterface = (project) => {
     const body = document.querySelector('body');
 
     const background = document.createElement('div');
@@ -196,7 +303,7 @@ export const newTodo = (project) => {
     const todoSubmitButton = document.createElement('button');
     todoSubmitButton.setAttribute('type', 'submit');
     todoSubmitButton.innerHTML = 'Add';
-    todoSubmitButton.addEventListener('click', function() {todoSubmit(project, projectList)});
+    todoSubmitButton.addEventListener('click', function() {todoSubmit(project, projectList)}); //refactor
 
     todoInterface.appendChild(title);
     todoInterface.appendChild(description);

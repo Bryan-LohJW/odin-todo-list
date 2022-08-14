@@ -1,6 +1,5 @@
 import { projectList } from ".";
-import { projectSubmit } from "./events";
-
+import { projectSubmit, todoSubmit } from "./events";
 
 export const baseline = () => {
     const body = document.querySelector('body');
@@ -47,11 +46,13 @@ export const projectPopulate = (pList) => {
     addProj.innerHTML = '(+)';
     projects.appendChild(addProj);
     addProj.addEventListener('click', function(){newProject()});
-    // _projectPopulateEvent();
 }
 
 export const todoPopulate = (project) => {
     const todos = document.querySelector('#todo-holder');
+    while(todos.firstChild) {
+        todos.removeChild(todos.firstChild);
+    }
     for(let i = 0; i < project.todoList.length; i++) {
         const todo = document.createElement('div');
         todo.classList.add('todo');
@@ -91,13 +92,12 @@ export const todoPopulate = (project) => {
     const addTodo = document.createElement('div');
     addTodo.setAttribute('id', 'add-todo');
     addTodo.innerHTML = '(+)';
+    addTodo.addEventListener('click', function() {newTodo(project)})
     todos.appendChild(addTodo);
 }
 
 export const newProject = () => {
     const body = document.querySelector('body');
-
-    const addProject = document.querySelector('#add-project');
 
     const background = document.createElement('div');
     background.classList.add('background');
@@ -124,9 +124,57 @@ export const newProject = () => {
     body.insertBefore(background, body.firstChild);
 }
 
-const _projectPopulateEvent = () => {
-    const projects = document.querySelectorAll('.project-name');
-    for(let i = 0; i < projects.length; i++) {
-        projects[i].addEventListener('click', function() {todoPopulate(pList[i])});
-    }
+const newTodo = (project) => {
+    const body = document.querySelector('body');
+
+    const background = document.createElement('div');
+    background.classList.add('background');
+
+    background.addEventListener('click', function(){body.removeChild(background);});
+
+    const todoInterface = document.createElement('div');
+    todoInterface.setAttribute('onclick', 'event.stopPropagation()');
+    todoInterface.classList.add('add-interface');
+
+    const title = document.createElement('input');
+    title.setAttribute('type', 'text');
+    title.setAttribute('placeholder', 'Title');
+    title.classList.add('todo-title-input');
+
+    const description = document.createElement('input');
+    description.setAttribute('type', 'text');
+    description.setAttribute('placeholder', 'Description');
+    description.classList.add('todo-description-input');
+
+    const date = document.createElement('input');
+    date.classList.add('todo-date-input');
+    date.setAttribute('type', 'date');
+
+    const priority = document.createElement('select');
+    const low = document.createElement('option');
+    low.setAttribute('value', 'Low');
+    low.innerHTML = 'Low';
+    const medium = document.createElement('option');
+    medium.setAttribute('value', 'Medium');
+    medium.innerHTML = 'Medium';
+    const high = document.createElement('option');
+    high.setAttribute('value', 'High');
+    high.innerHTML = 'High';
+    priority.appendChild(low);
+    priority.appendChild(medium);
+    priority.appendChild(high);
+    priority.classList.add('todo-priority-input');
+
+    const todoSubmitButton = document.createElement('button');
+    todoSubmitButton.setAttribute('type', 'submit');
+    todoSubmitButton.innerHTML = 'Add';
+    todoSubmitButton.addEventListener('click', function() {todoSubmit(project)});
+
+    todoInterface.appendChild(title);
+    todoInterface.appendChild(description);
+    todoInterface.appendChild(date);
+    todoInterface.appendChild(priority);
+    todoInterface.appendChild(todoSubmitButton);
+    background.appendChild(todoInterface);
+    body.insertBefore(background, body.firstChild);
 }

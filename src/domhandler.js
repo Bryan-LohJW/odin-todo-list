@@ -40,12 +40,14 @@ export const projectPopulate = (pList) => {
         project.appendChild(name);
         project.appendChild(del);
         projects.appendChild(project);
+        name.addEventListener('click', function() {todoPopulate(pList.projectList[i])});
     }
     const addProj = document.createElement('div');
     addProj.setAttribute('id', 'add-project');
     addProj.innerHTML = '(+)';
     projects.appendChild(addProj);
     addProj.addEventListener('click', function(){newProject()});
+    // _projectPopulateEvent();
 }
 
 export const todoPopulate = (project) => {
@@ -120,4 +122,11 @@ export const newProject = () => {
     projectInterface.appendChild(projectNameSubmit);
     background.appendChild(projectInterface);
     body.insertBefore(background, body.firstChild);
+}
+
+const _projectPopulateEvent = () => {
+    const projects = document.querySelectorAll('.project-name');
+    for(let i = 0; i < projects.length; i++) {
+        projects[i].addEventListener('click', function() {todoPopulate(pList[i])});
+    }
 }

@@ -1,3 +1,7 @@
+import { displayProjects, displayTodos } from "./interface";
+
+export let myProjectList = []
+
 export default class Todo {
     constructor(title, description, dueDate, priority, color = 'black', check = false) {
         this.title = title;
@@ -16,16 +20,21 @@ export class Project {
     }
 }
 
-export let myProjectList = []
-
-export const removeProject = (project, projectList = myProjectList) => {
-    for(let i = 0; i < projectList.length; i++) {
-        if(project.name === projectList[i].name) {
-            projectList.splice(i,1);
-        }
+export const updateProjectId = () => {
+    for(let i = 0; i < myProjectList.length; i++) {
+        myProjectList[i].id = i;
     }
-    for(let i = 0; i < projectList.length; i++) {
-        projectList[i].id = i;
+}
+
+export const removeProject = (project, myProjectList) => {
+    // for(let i = 0; i < myProjectList.length; i++) {
+    //     if(project.name === myProjectList[i].name) {
+    //         myProjectList.splice(i,1);
+    //     }
+    // }
+    myProjectList.splice(project.id, 1);
+    for(let i = 0; i < myProjectList.length; i++) {
+        myProjectList[i].id = i;
     }
 }
 
@@ -59,12 +68,10 @@ export const removeTodo = (project, todoTitle) => { //want to change so that use
             project.todoList.splice(i, 1);
         }
     }
-    for(let i = 0; i < project.todoList.length; i++) {
-        project.todoList[i].id = i;
-    }
+    updateProjectId();
 }
 
-export const projectSubmit = (myProjectList = myProjectList) => {
+export const projectSubmit = () => {
     const projectName = document.querySelector('.project-name').value;
     const project = new Project(projectName)
     myProjectList.push(project);
@@ -73,10 +80,10 @@ export const projectSubmit = (myProjectList = myProjectList) => {
     const body = document.querySelector('body');
     body.removeChild(background);
 
-    projectPopulate(myProjectList); //refactor
+    displayProjects();
 }
 
-export const todoSubmit = (project, projectList = myProjectList) => {
+export const todoSubmit = (project) => {
     const title = document.querySelector('.todo-title-input').value;
     const description = document.querySelector('.todo-description-input').value;
     const date = document.querySelector('.todo-date-input').value;
@@ -90,10 +97,10 @@ export const todoSubmit = (project, projectList = myProjectList) => {
     const body = document.querySelector('body');
     body.removeChild(background);
 
-    todoPopulate(project); //refactor
-    projectPopulate(projectList); //refactor
+    displayTodos(project);
+    displayProjects();
 }
 
 export const changeProject = (project) => {
-    todoPopulate(project); //refactor
+    displayTodos(project);
 }

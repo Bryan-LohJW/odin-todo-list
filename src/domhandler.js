@@ -1,5 +1,4 @@
-import { projectList } from ".";
-import { projectSubmit, todoSubmit } from "./events";
+import { delProjectEvent, displayTodos } from "./interface";
 
 export const baseline = () => {
     const body = document.querySelector('body');
@@ -31,14 +30,15 @@ export const addSingleProject = (project) => {
     const del = document.createElement('div');
     del.classList.add('project-del');
     del.innerHTML = '(X)';
-    del.addEventListener('click', function() {pList.projectList.splice(i,1) 
-        projectPopulate(pList) 
-        todoPopulate(pList.projectList[0])}); //refactor
+    del.addEventListener('click', function() {delProjectEvent(project);});
+        // pList.projectList.splice(i,1) 
+        // projectPopulate(pList) 
+        // todoPopulate(pList.projectList[0])}); //refactor
     
     projectDiv.appendChild(name);
     projectDiv.appendChild(del);
     projects.appendChild(projectDiv);
-    name.addEventListener('click', function() {todoPopulate(pList.projectList[i])}); //refactor
+    name.addEventListener('click', function() {displayTodos(project)});
         
 }
 
@@ -48,7 +48,7 @@ export const addProjectAdder = () => {
     addProj.setAttribute('id', 'add-project');
     addProj.innerHTML = '(+)';
     projects.appendChild(addProj);
-    addProj.addEventListener('click', function(){newProject()}); //refactor
+    addProj.addEventListener('click', function(){newProjectInterface()});
 }
 
 export const clearProjects = () => {
@@ -87,7 +87,7 @@ export const addSingleTodo = (todo) => {
     const edit = document.createElement('div');
     edit.classList.add('todo-edit');
     edit.innerHTML = 'Edit';
-    edit.addEventListener('click', function() {alert(`${todo.title}`)}); //refactor
+    edit.addEventListener('click', function() {alert(`${todo.title}`)}); //need to do this
 
     const color = todo.color;
     if(color ==='black') {
@@ -113,7 +113,7 @@ export const addTodoAdder = () => {
     const addTodo = document.createElement('div');
     addTodo.setAttribute('id', 'add-todo');
     addTodo.innerHTML = '(+)';
-    addTodo.addEventListener('click', function() {newTodo(project)}) //refactor
+    addTodo.addEventListener('click', function() {newTodoInterface(project)}) //refactor
     todos.appendChild(addTodo);
 }
 
@@ -236,7 +236,7 @@ export const newProjectInterface = () => {
     const projectNameSubmit = document.createElement('button');
     projectNameSubmit.setAttribute('type', 'submit');
     projectNameSubmit.innerHTML = 'Create';
-    projectNameSubmit.addEventListener('click', function() {projectSubmit(projectList)}); //refactor
+    projectNameSubmit.addEventListener('click', function() {projectSubmit()});
 
     projectInterface.appendChild(projectName);
     projectInterface.appendChild(projectNameSubmit);
@@ -303,7 +303,7 @@ export const newTodoInterface = (project) => {
     const todoSubmitButton = document.createElement('button');
     todoSubmitButton.setAttribute('type', 'submit');
     todoSubmitButton.innerHTML = 'Add';
-    todoSubmitButton.addEventListener('click', function() {todoSubmit(project, projectList)}); //refactor
+    todoSubmitButton.addEventListener('click', function() {todoSubmit(project)});
 
     todoInterface.appendChild(title);
     todoInterface.appendChild(description);

@@ -126,3 +126,15 @@ input[type = 'checkbox'] {
 .add-interface > form > button {
     height: 3rem;
 }
+
+.border-black {
+    border: 1px solid black;
+}
+
+.border-blue {
+    border: 1px solid blue;
+}
+
+.border-red {
+    border: 1px solid red;
+}

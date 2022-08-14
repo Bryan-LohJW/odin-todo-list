@@ -19,7 +19,9 @@ export const todoSubmit = (project, projectList) => {
     const description = document.querySelector('.todo-description-input').value;
     const date = document.querySelector('.todo-date-input').value;
     const priority = document.querySelector('.todo-priority-input').value;
-    const todo = new Todo(title, description, date, priority);
+    const color = document.querySelector('.todo-color-input').value;
+    console.log(color);
+    const todo = new Todo(title, description, date, priority, color);
     pushTodo(project, todo);
 
     const background = document.querySelector('.background');

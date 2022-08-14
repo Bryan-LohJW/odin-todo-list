@@ -84,6 +84,15 @@ export const todoPopulate = (project) => {
         edit.classList.add('todo-edit');
         edit.innerHTML = 'Edit';
 
+        const color = project.todoList[i].color;
+        if(color ==='black') {
+            todo.classList.add('border-black');
+        } else if (color === 'blue') {
+            todo.classList.add('border-blue');
+        } else if (color === 'red') {
+            todo.classList.add('border-red');
+        }
+
         todo.appendChild(check);
         todo.appendChild(title);
         todo.appendChild(description);
@@ -155,18 +164,33 @@ export const newTodo = (project) => {
 
     const priority = document.createElement('select');
     const low = document.createElement('option');
-    low.setAttribute('value', 'Low');
+    low.setAttribute('value', 'low');
     low.innerHTML = 'Low';
     const medium = document.createElement('option');
-    medium.setAttribute('value', 'Medium');
+    medium.setAttribute('value', 'medium');
     medium.innerHTML = 'Medium';
     const high = document.createElement('option');
-    high.setAttribute('value', 'High');
+    high.setAttribute('value', 'high');
     high.innerHTML = 'High';
     priority.appendChild(low);
     priority.appendChild(medium);
     priority.appendChild(high);
     priority.classList.add('todo-priority-input');
+
+    const color = document.createElement('select');
+    const black = document.createElement('option');
+    black.setAttribute('value', 'black');
+    black.innerHTML = 'Black';
+    const blue = document.createElement('option');
+    blue.setAttribute('value', 'blue');
+    blue.innerHTML = 'Blue';
+    const red = document.createElement('option');
+    red.setAttribute('value', 'red');
+    red.innerHTML = 'Red';
+    color.appendChild(black);
+    color.appendChild(blue);
+    color.appendChild(red);
+    color.classList.add('todo-color-input');
 
     const todoSubmitButton = document.createElement('button');
     todoSubmitButton.setAttribute('type', 'submit');
@@ -177,6 +201,7 @@ export const newTodo = (project) => {
     todoInterface.appendChild(description);
     todoInterface.appendChild(date);
     todoInterface.appendChild(priority);
+    todoInterface.appendChild(color);
     todoInterface.appendChild(todoSubmitButton);
     background.appendChild(todoInterface);
     body.insertBefore(background, body.firstChild);

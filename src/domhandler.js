@@ -83,6 +83,7 @@ export const todoPopulate = (project) => {
         const edit = document.createElement('div');
         edit.classList.add('todo-edit');
         edit.innerHTML = 'Edit';
+        edit.addEventListener('click', function() {alert(`${project.todoList[i].title}`)});
 
         const color = project.todoList[i].color;
         if(color ==='black') {

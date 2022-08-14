@@ -35,6 +35,9 @@ export const projectPopulate = (pList) => {
         const del = document.createElement('div');
         del.classList.add('project-del');
         del.innerHTML = '(X)';
+        del.addEventListener('click', function() {pList.projectList.splice(i,1) 
+            projectPopulate(pList) 
+            todoPopulate(pList.projectList[0])});
 
         project.appendChild(name);
         project.appendChild(del);
@@ -124,7 +127,7 @@ export const newProject = () => {
     body.insertBefore(background, body.firstChild);
 }
 
-const newTodo = (project) => {
+export const newTodo = (project) => {
     const body = document.querySelector('body');
 
     const background = document.createElement('div');
@@ -168,7 +171,7 @@ const newTodo = (project) => {
     const todoSubmitButton = document.createElement('button');
     todoSubmitButton.setAttribute('type', 'submit');
     todoSubmitButton.innerHTML = 'Add';
-    todoSubmitButton.addEventListener('click', function() {todoSubmit(project)});
+    todoSubmitButton.addEventListener('click', function() {todoSubmit(project, projectList)});
 
     todoInterface.appendChild(title);
     todoInterface.appendChild(description);

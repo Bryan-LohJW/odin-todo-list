@@ -14,7 +14,7 @@ export const projectSubmit = (projectList) => {
     projectPopulate(projectList);
 }
 
-export const todoSubmit = (project) => {
+export const todoSubmit = (project, projectList) => {
     const title = document.querySelector('.todo-title-input').value;
     const description = document.querySelector('.todo-description-input').value;
     const date = document.querySelector('.todo-date-input').value;
@@ -27,6 +27,7 @@ export const todoSubmit = (project) => {
     body.removeChild(background);
 
     todoPopulate(project);
+    projectPopulate(projectList);
 }
 
 export const changeProject = (project) => {

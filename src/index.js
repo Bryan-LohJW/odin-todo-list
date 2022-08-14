@@ -1,14 +1,15 @@
 import Todo from './todo';
-import {Project, addTodo, removeTodo, ProjectList} from './project';
-import {baseline, projectPopulate, todoPopulate} from './domhandler';
+import {Project, pushTodo, removeTodo, ProjectList} from './project';
+import {baseline, projectPopulate, todoPopulate, newProject} from './domhandler';
 import './style.css';
+import {projectSubmit} from './events';
 
 let todo = new Todo('title', 'desc', 'date', 'prio');
 let todo2 = new Todo('title1', 'desc', 'date', 'prio');
 let todo3 = new Todo('title2', 'desc', 'date', 'prio');
 let todo4 = new Todo('title3', 'desc', 'date', 'prio');
 let project = new Project('Hello');
-let projectList = new ProjectList();
+export let projectList = new ProjectList();
 
 let todo1 = new Todo('title', 'desc', 'date', 'prio');
 let todo21 = new Todo('title1', 'desc', 'date', 'prio');
@@ -16,18 +17,18 @@ let todo31 = new Todo('title2', 'desc', 'date', 'prio');
 let todo41 = new Todo('title3', 'desc', 'date', 'prio');
 let project1 = new Project('Hello');
 
-addTodo(project, todo);
-addTodo(project, todo2);
-addTodo(project, todo3);
-addTodo(project, todo4);
+pushTodo(project, todo);
+pushTodo(project, todo2);
+pushTodo(project, todo3);
+pushTodo(project, todo4);
 
-addTodo(project1, todo1);
-addTodo(project1, todo21);
-addTodo(project1, todo31);
-addTodo(project1, todo41);
+pushTodo(project1, todo1);
+pushTodo(project1, todo21);
+pushTodo(project1, todo31);
+pushTodo(project1, todo41);
 
-projectList.addProject(project);
-projectList.addProject(project1);
+projectList.pushProject(project);
+projectList.pushProject(project1);
 
 removeTodo(project, 'title2');
 

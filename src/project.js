@@ -1,4 +1,4 @@
-import { displayProjects, displayTodos } from "./interface";
+import { displayProjects, displayTodos, stringifyProjectList } from "./interface";
 
 export let myProjectList = []
 
@@ -27,35 +27,11 @@ export const updateProjectId = () => {
 }
 
 export const removeProject = (project) => {
-    // for(let i = 0; i < myProjectList.length; i++) {
-    //     if(project.name === myProjectList[i].name) {
-    //         myProjectList.splice(i,1);
-    //     }
-    // }
     myProjectList.splice(project.id, 1);
     for(let i = 0; i < myProjectList.length; i++) {
         myProjectList[i].id = i;
     }
 }
-
-// export class ProjectList {
-//     constructor() {
-//         this.projectList = [];
-//     }
-//     pushProject (project) {
-//         this.projectList.push(project);
-//     }
-//     removeProject  (project) {
-//         for(let i = 0; i < this.projectList.length; i++) {
-//             if(project.name === this.projectList[i].name) {
-//                 this.projectList.splice(i,1);
-//             }
-//         }
-//         for(let i = 0; i < this.projectList.length; i++) {
-//             this.projectList[i].id = i;
-//         }
-//     }
-// }
 
 export const pushTodo = (project, todo) => {
     todo.id = project.todoList.length;
@@ -81,6 +57,7 @@ export const projectSubmit = () => {
     body.removeChild(background);
 
     displayProjects();
+    stringifyProjectList();
 }
 
 export const todoSubmit = (project) => {
@@ -99,6 +76,7 @@ export const todoSubmit = (project) => {
 
     displayTodos(project);
     displayProjects();
+    stringifyProjectList();
 }
 
 export const changeProject = (project) => {

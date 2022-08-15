@@ -114,7 +114,7 @@ export const addTodoAdder = () => {
     const addTodo = document.createElement('div');
     addTodo.setAttribute('id', 'add-todo');
     addTodo.innerHTML = '(+)';
-    addTodo.addEventListener('click', function() {newTodoInterface(myProjectList[currentProjectId])}) //refactor
+    addTodo.addEventListener('click', function() {newTodoInterface(myProjectList[currentProjectId])})
     todos.appendChild(addTodo);
 }
 

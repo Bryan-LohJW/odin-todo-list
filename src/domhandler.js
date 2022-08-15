@@ -1,4 +1,5 @@
-import { delProjectEvent, displayTodos } from "./interface";
+import { currentProjectId, delProjectEvent, displayTodos } from "./interface";
+import { myProjectList, projectSubmit, todoSubmit } from "./project";
 
 export const baseline = () => {
     const body = document.querySelector('body');
@@ -91,11 +92,11 @@ export const addSingleTodo = (todo) => {
 
     const color = todo.color;
     if(color ==='black') {
-        todo.classList.add('border-black');
+        todoDiv.classList.add('border-black');
     } else if (color === 'blue') {
-        todo.classList.add('border-blue');
+        todoDiv.classList.add('border-blue');
     } else if (color === 'red') {
-        todo.classList.add('border-red');
+        todoDiv.classList.add('border-red');
     }
 
     todoDiv.appendChild(check);
@@ -113,7 +114,7 @@ export const addTodoAdder = () => {
     const addTodo = document.createElement('div');
     addTodo.setAttribute('id', 'add-todo');
     addTodo.innerHTML = '(+)';
-    addTodo.addEventListener('click', function() {newTodoInterface(project)}) //refactor
+    addTodo.addEventListener('click', function() {newTodoInterface(myProjectList[currentProjectId])}) //refactor
     todos.appendChild(addTodo);
 }
 

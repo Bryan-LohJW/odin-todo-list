@@ -26,7 +26,7 @@ export const updateProjectId = () => {
     }
 }
 
-export const removeProject = (project, myProjectList) => {
+export const removeProject = (project) => {
     // for(let i = 0; i < myProjectList.length; i++) {
     //     if(project.name === myProjectList[i].name) {
     //         myProjectList.splice(i,1);

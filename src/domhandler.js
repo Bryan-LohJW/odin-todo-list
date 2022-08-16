@@ -1,5 +1,6 @@
 import { delProjectEvent, displayTodos, stringifyProjectList } from "./interface";
-import { myProjectList, projectSubmit, todoSubmit, currentProjectId } from "./project";
+import { projectSubmit, todoSubmit, todoEdit } from "./project";
+import { myProjectList, currentProjectId } from "./index.js";
 
 export const baseline = () => {
     const body = document.querySelector('body');
@@ -89,7 +90,7 @@ export const addSingleTodo = (todo) => {
     const edit = document.createElement('div');
     edit.classList.add('todo-edit');
     edit.innerHTML = 'Edit';
-    edit.addEventListener('click', function() {stringifyProjectList()}); //need to do this
+    edit.addEventListener('click', function() {editTodoInterface(myProjectList[currentProjectId], todo)});
 
     const color = todo.color;
     if(color ==='black') {
@@ -223,6 +224,82 @@ export const newTodoInterface = (project) => {
     todoInterface.appendChild(todoSubmitButton);
     background.appendChild(todoInterface);
     body.insertBefore(background, body.firstChild);
+}
+
+export const editTodoInterface = (project, todo) => {
+    const body = document.querySelector('body');
+
+    const background = document.createElement('div');
+    background.classList.add('background');
+
+    background.addEventListener('click', function(){body.removeChild(background);});
+
+    const todoInterface = document.createElement('div');
+    todoInterface.setAttribute('onclick', 'event.stopPropagation()');
+    todoInterface.classList.add('add-interface');
+
+    const title = document.createElement('input');
+    title.setAttribute('type', 'text');
+    title.setAttribute('placeholder', 'Title');
+    title.classList.add('todo-title-input');
+    title.value = todo.title;
+
+    const description = document.createElement('input');
+    description.setAttribute('type', 'text');
+    description.setAttribute('placeholder', 'Description');
+    description.classList.add('todo-description-input');
+    description.value = todo.description;
+
+    const date = document.createElement('input');
+    date.classList.add('todo-date-input');
+    date.setAttribute('type', 'date');
+    date.value = todo.date;
+
+    const priority = document.createElement('select');
+    const low = document.createElement('option');
+    low.setAttribute('value', 'low');
+    low.innerHTML = 'Low';
+    const medium = document.createElement('option');
+    medium.setAttribute('value', 'medium');
+    medium.innerHTML = 'Medium';
+    const high = document.createElement('option');
+    high.setAttribute('value', 'high');
+    high.innerHTML = 'High';
+    priority.appendChild(low);
+    priority.appendChild(medium);
+    priority.appendChild(high);
+    priority.classList.add('todo-priority-input');
+    priority.value = todo.priority;
+
+    const color = document.createElement('select');
+    const black = document.createElement('option');
+    black.setAttribute('value', 'black');
+    black.innerHTML = 'Black';
+    const blue = document.createElement('option');
+    blue.setAttribute('value', 'blue');
+    blue.innerHTML = 'Blue';
+    const red = document.createElement('option');
+    red.setAttribute('value', 'red');
+    red.innerHTML = 'Red';
+    color.appendChild(black);
+    color.appendChild(blue);
+    color.appendChild(red);
+    color.classList.add('todo-color-input');
+    color.value = todo.color;
+
+    const todoSubmitButton = document.createElement('button');
+    todoSubmitButton.setAttribute('type', 'submit');
+    todoSubmitButton.innerHTML = 'Confirm';
+    todoSubmitButton.addEventListener('click', function() {todoEdit(project, todo)});
+
+    todoInterface.appendChild(title);
+    todoInterface.appendChild(description);
+    todoInterface.appendChild(date);
+    todoInterface.appendChild(priority);
+    todoInterface.appendChild(color);
+    todoInterface.appendChild(todoSubmitButton);
+    background.appendChild(todoInterface);
+    body.insertBefore(background, body.firstChild); 
 }
 
 export const todoCheckEvent = (checkbox, div, todo) => {

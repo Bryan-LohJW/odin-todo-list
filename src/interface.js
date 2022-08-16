@@ -1,5 +1,6 @@
 import { addProjectAdder, addSingleProject, addSingleTodo, addTodoAdder, clearProjects, clearTodos, baseline } from "./domhandler";
-import { myProjectList, removeProject, updateProjectId, currentProjectId } from "./project";
+import { removeProject, updateProjectId, Project } from "./project";
+import { myProjectList, currentProjectId } from "./index.js";
 import './style.css';
 
 export let startUp = () => {
@@ -7,6 +8,9 @@ export let startUp = () => {
         localStorage.setItem('firstTime', 'notFirstTime');
         const defaultProject = new Project('Default');
         myProjectList.push(defaultProject);
+        baseline();
+        displayProjects();
+        displayTodos(myProjectList[currentProjectId]);
     } else {
         myProjectList = parseProjectList();
         currentProjectId = parseCurrentProjectId();
@@ -54,6 +58,7 @@ export const displayProjects = () => {
 export const displayTodos = (project) => {
     clearTodos();
     for(let i = 0; i < project.todoList.length; i++) {
+        project.todoList[i].id = i;
         addSingleTodo(project.todoList[i]);
     }
     addTodoAdder();

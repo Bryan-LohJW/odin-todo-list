@@ -1,8 +1,7 @@
 import { displayProjects, displayTodos, stringifyProjectList } from "./interface";
+import { myProjectList, currentProjectId } from "./index.js";
 
-export let myProjectList = [];
 
-export let currentProjectId = 0;
 
 export default class Todo {
     constructor(title, description, dueDate, priority, color = 'black', check = false) {
@@ -81,6 +80,23 @@ export const todoSubmit = (project) => {
     stringifyProjectList();
 }
 
+export const todoEdit = (project, todo) => {
+    const title = document.querySelector('.todo-title-input').value;
+    const description = document.querySelector('.todo-description-input').value;
+    const date = document.querySelector('.todo-date-input').value;
+    const priority = document.querySelector('.todo-priority-input').value;
+    const color = document.querySelector('.todo-color-input').value;
+    const newTodo = new Todo(title, description, date, priority, color);
+    project.todoList.splice(todo.id, 1, newTodo);
+
+    const background = document.querySelector('.background');
+    const body = document.querySelector('body');
+    body.removeChild(background);
+
+    displayTodos(project);
+    displayProjects();
+    stringifyProjectList();
+}
 export const changeProject = (project) => {
     displayTodos(project);
 }

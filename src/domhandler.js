@@ -1,5 +1,5 @@
 import { delProjectEvent, displayTodos, stringifyProjectList } from "./interface";
-import { projectSubmit, todoSubmit, todoEdit } from "./project";
+import { projectSubmit, todoSubmit, todoEdit, todoDelete } from "./project";
 import { myProjectList, currentProjectId } from "./index.js";
 
 export const baseline = () => {
@@ -300,12 +300,17 @@ export const editTodoInterface = (project, todo) => {
     todoSubmitButton.innerHTML = 'Confirm';
     todoSubmitButton.addEventListener('click', function() {todoEdit(project, todo)});
 
+    const todoDeleteButton = document.createElement('button');
+    todoDeleteButton.innerHTML = 'Delete';
+    todoDeleteButton.addEventListener('click', function() {todoDelete(project, todo)});
+
     todoInterface.appendChild(title);
     todoInterface.appendChild(description);
     todoInterface.appendChild(date);
     todoInterface.appendChild(priority);
     todoInterface.appendChild(color);
     todoInterface.appendChild(todoSubmitButton);
+    todoInterface.appendChild(todoDeleteButton);
     background.appendChild(todoInterface);
     body.insertBefore(background, body.firstChild); 
 }

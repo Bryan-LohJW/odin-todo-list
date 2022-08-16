@@ -97,6 +97,19 @@ export const todoEdit = (project, todo) => {
     displayProjects();
     stringifyProjectList();
 }
+
+export const todoDelete = (project, todo) => {
+    project.todoList.splice(todo.id, 1);
+
+    const background = document.querySelector('.background');
+    const body = document.querySelector('body');
+    body.removeChild(background);
+
+    displayTodos(project);
+    displayProjects();
+    stringifyProjectList();
+}
+
 export const changeProject = (project) => {
     displayTodos(project);
 }

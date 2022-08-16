@@ -47,6 +47,14 @@ export const addProjectAdder = () => {
     addProj.innerHTML = '(+)';
     projects.appendChild(addProj);
     addProj.addEventListener('click', function(){newProjectInterface()});
+
+    const reset = document.createElement('button');
+    reset.classList.add('reset-button');
+    reset.innerHTML = 'Reset';
+    projects.appendChild(reset);
+    reset.addEventListener('click', function() {localStorage.clear()});
+    reset.addEventListener('click', function() {location.reload()});
+    
 }
 
 export const clearProjects = () => {

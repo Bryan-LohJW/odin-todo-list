@@ -64,7 +64,11 @@ export const addSingleTodo = (todo) => {
     const check = document.createElement('input');
     check.classList.add('check');
     check.setAttribute('type', 'checkbox');
-    todoCheckEvent(check, todoDiv);
+    todoCheckEvent(check, todoDiv, todo);
+    if(todo.check) {
+        todoDiv.classList.add('checkedTodo');
+        check.setAttribute('checked', '');
+    }
 
     const title = document.createElement('p');
     title.classList.add('title');
@@ -224,11 +228,11 @@ export const newTodoInterface = (project) => {
 export const todoCheckEvent = (checkbox, div, todo) => {
     checkbox.addEventListener('change', function() {
         div.classList.toggle('checkedTodo');
-        stringifyProjectList();
         if(myProjectList[currentProjectId].todoList[todo.id].check) {
             myProjectList[currentProjectId].todoList[todo.id].check = false;
         } else{
             myProjectList[currentProjectId].todoList[todo.id].check = true;
         }
+        stringifyProjectList();
     })
 }

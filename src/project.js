@@ -1,6 +1,8 @@
 import { displayProjects, displayTodos, stringifyProjectList } from "./interface";
 
-export let myProjectList = []
+export let myProjectList = [];
+
+export let currentProjectId = 0;
 
 export default class Todo {
     constructor(title, description, dueDate, priority, color = 'black', check = false) {

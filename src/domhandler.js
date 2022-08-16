@@ -1,5 +1,5 @@
-import { currentProjectId, delProjectEvent, displayTodos, stringifyProjectList } from "./interface";
-import { myProjectList, projectSubmit, todoSubmit } from "./project";
+import { delProjectEvent, displayTodos, stringifyProjectList } from "./interface";
+import { myProjectList, projectSubmit, todoSubmit, currentProjectId } from "./project";
 
 export const baseline = () => {
     const body = document.querySelector('body');
@@ -64,6 +64,7 @@ export const addSingleTodo = (todo) => {
     const check = document.createElement('input');
     check.classList.add('check');
     check.setAttribute('type', 'checkbox');
+    todoCheckEvent(check, todoDiv);
 
     const title = document.createElement('p');
     title.classList.add('title');
@@ -218,4 +219,16 @@ export const newTodoInterface = (project) => {
     todoInterface.appendChild(todoSubmitButton);
     background.appendChild(todoInterface);
     body.insertBefore(background, body.firstChild);
+}
+
+export const todoCheckEvent = (checkbox, div, todo) => {
+    checkbox.addEventListener('change', function() {
+        div.classList.toggle('checkedTodo');
+        stringifyProjectList();
+        if(myProjectList[currentProjectId].todoList[todo.id].check) {
+            myProjectList[currentProjectId].todoList[todo.id].check = false;
+        } else{
+            myProjectList[currentProjectId].todoList[todo.id].check = true;
+        }
+    })
 }

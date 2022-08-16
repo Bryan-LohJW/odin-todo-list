@@ -97,6 +97,10 @@ table {
     font-size: 2rem;
 }
 
+.checkedTodo {
+    background-color: gray;
+}
+
 input[type = 'checkbox'] {
     height: 2rem;
     width: 2rem;

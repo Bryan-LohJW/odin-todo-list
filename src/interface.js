@@ -1,27 +1,24 @@
 import { addProjectAdder, addSingleProject, addSingleTodo, addTodoAdder, clearProjects, clearTodos, baseline } from "./domhandler";
-import { myProjectList, removeProject, updateProjectId } from "./project";
+import { myProjectList, removeProject, updateProjectId, currentProjectId } from "./project";
 import './style.css';
-
-export let currentProjectId = 0;
 
 export let startUp = () => {
     if(localStorage.getItem('firstTime') === null) {
         localStorage.setItem('firstTime', 'notFirstTime');
         const defaultProject = new Project('Default');
         myProjectList.push(defaultProject);
-        setLocalStorage();
     } else {
         myProjectList = parseProjectList();
+        currentProjectId = parseCurrentProjectId();
         baseline();
         displayProjects();
-        displayTodos(myProjectList[0]);
+        displayTodos(myProjectList[currentProjectId]);
     }
 }
 
 export let stringifyProjectList = () => {
     const key = 'projectList';
     const value = JSON.stringify(myProjectList);
-    localStorage.removeItem(key);
     localStorage.setItem(key, value);
 }
 
@@ -32,6 +29,18 @@ export let parseProjectList = () => {
     return object
 }
 
+export let stringifyCurrentProjectId = () => {
+    const key = 'currentProjectId';
+    const value = JSON.stringify(currentProjectId);
+    localStorage.setItem(key, value);
+}
+
+export let parseCurrentProjectId = () => {
+    const key = 'currentProjectId';
+    const value = localStorage.getItem(key);
+    const object = JSON.parse(value);
+    return object
+}
 
 export const displayProjects = () => {
     clearProjects();
@@ -49,12 +58,17 @@ export const displayTodos = (project) => {
     }
     addTodoAdder();
     currentProjectId = project.id;
+    stringifyCurrentProjectId();
 }
 
 export const delProjectEvent = (project) => {
-    if(project.id === currentProjectId) {
-        displayTodos(myProjectList[0]);
-    }
+    const id = project.id;
     removeProject(project);
+    if(id === currentProjectId) {
+        displayTodos(myProjectList[0]);
+        currentProjectId = 0;
+        stringifyCurrentProjectId();
+    }
     displayProjects();
+    stringifyProjectList();
 }

@@ -50,6 +50,12 @@ export const removeTodo = (project, todoTitle) => { //want to change so that use
 
 export const projectSubmit = () => {
     const projectName = document.querySelector('.project-name').value;
+
+    if(projectSubmitCheck(projectName)) {
+        alert('Please fill all fields');
+        return;
+    }
+
     const project = new Project(projectName)
     myProjectList.push(project);
 
@@ -67,6 +73,12 @@ export const todoSubmit = (project) => {
     const date = document.querySelector('.todo-date-input').value;
     const priority = document.querySelector('.todo-priority-input').value;
     const color = document.querySelector('.todo-color-input').value;
+
+    if(todoSubmitCheck(title, description)) {
+        alert('Please fill all fields');
+        return;
+    }
+
     const todo = new Todo(title, description, date, priority, color);
     todo.id = project.todoList.length;
     project.todoList.push(todo);
@@ -86,6 +98,12 @@ export const todoEdit = (project, todo) => {
     const date = document.querySelector('.todo-date-input').value;
     const priority = document.querySelector('.todo-priority-input').value;
     const color = document.querySelector('.todo-color-input').value;
+
+    if(todoSubmitCheck(title, description)) {
+        alert('Please fill all fields');
+        return;
+    }
+
     const newTodo = new Todo(title, description, date, priority, color);
     project.todoList.splice(todo.id, 1, newTodo);
 
@@ -112,4 +130,19 @@ export const todoDelete = (project, todo) => {
 
 export const changeProject = (project) => {
     displayTodos(project);
+}
+
+export const projectSubmitCheck = (name) => {
+    name = document.querySelector('.project-name');
+    if(name.value === '') {
+        return true;
+    } 
+}
+
+export const todoSubmitCheck = (name, description) => {
+    name = document.querySelector('.todo-title-input');
+    description = document.querySelector('.todo-description-input');
+    if(name.value === '' || description.value === '') {
+        return true;
+    } 
 }

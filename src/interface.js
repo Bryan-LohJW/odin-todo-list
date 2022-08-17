@@ -11,6 +11,7 @@ export let startUp = () => {
         baseline();
         displayProjects();
         displayTodos(myProjectList[currentProjectId]);
+        stringifyProjectList();
     } else {
         myProjectList = parseProjectList();
         currentProjectId = parseCurrentProjectId();

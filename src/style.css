@@ -50,7 +50,16 @@ table {
 /* ....................................................................... */
 
 :root {
-    
+    --light-grey: rgb(240, 240, 240);
+    --danger-red: #FF0000;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+#header {
+    width: 100vw;
+    height: 100px;
+
+    background-color: var(--light-grey);
 }
 
 #content {
@@ -64,37 +73,73 @@ table {
     display: grid;
     grid-auto-rows: min-content;
     gap: 2rem;
+    padding: 0rem 0.5rem;
+    height: calc(100vh - 150px);
+
+    border-right: 1px dashed black;
 }
 
 .project {
     display: flex;
     justify-content: space-between;
 
-    padding: 0rem 2rem;
+    padding: 1rem 2rem; 
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-radius: 0.5rem;
 }
 
 .project-name,
 .project-del {
-    font-size: 3rem;
+    font-size: 2rem;
 }
 
 #add-project {
+    justify-self: center;
     text-align: center;
-    font-size: 3rem;
+    font-size: 2rem;
+    width: 50%;
+    border: 1px dashed var(--light-grey);
+    border-radius: 0.5rem;
+    background-color: rgb(240, 240, 240);
+    padding: 1rem;
 }
 
 #todo-holder {
     display: grid;
     grid-auto-rows: min-content;
     gap: 1.5rem;
+    padding: 0rem 2rem;
 }
 
-.todo,
 #add-todo {
     display: flex;
     justify-content: space-evenly;
 
+    padding: 1rem 2rem;
     font-size: 2rem;
+}
+
+.todo {
+    display: grid;
+    grid-template-columns: 4rem 2fr 3fr 1fr 1fr 1fr;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+}
+
+.title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .checkedTodo {
@@ -115,30 +160,51 @@ input[type = 'checkbox'] {
     height: 100vh;
     position: fixed;
 
-    background-color: black;
-    opacity: 0.8;
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .add-interface {
     width:fit-content;
     height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 
     background-color: white;
     padding: 5rem;
 }
 
-.add-interface > form > button {
-    height: 3rem;
+.add-interface > * {
+    font-size: 2rem;
 }
 
 .border-black {
-    border: 1px solid black;
+    border: 1px dotted black;
+    border-left: 1.5rem solid black;
 }
 
 .border-blue {
-    border: 1px solid blue;
+    border: 1px dotted black;
+    border-left: 1.5rem solid blue;
 }
 
 .border-red {
-    border: 1px solid red;
+    border: 1px dotted black;
+    border-left: 1.5rem solid red;
+}
+
+.reset-button {
+    justify-self: center;
+    width: fit-content;
+    height: fit-content;
+    background-color: var(--danger-red);
+    padding: 0.5rem 2rem;
+    font-size: 1.5rem;
+    color: whitesmoke;
+    border-radius: 0.5rem;
+    transition: 200ms;
+}
+
+.reset-button:hover {
+    filter:contrast(0.8)
 }

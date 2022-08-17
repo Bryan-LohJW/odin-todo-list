@@ -1,9 +1,13 @@
 import { delProjectEvent, displayTodos, stringifyProjectList } from "./interface";
 import { projectSubmit, todoSubmit, todoEdit, todoDelete } from "./project";
 import { myProjectList, currentProjectId } from "./index.js";
+import { format, compareAsc } from 'date-fns'
 
 export const baseline = () => {
     const body = document.querySelector('body');
+
+    const header = document.createElement('div');
+    header.setAttribute('id', 'header');
 
     const content = document.createElement('div');
     content.setAttribute('id', 'content');
@@ -16,6 +20,7 @@ export const baseline = () => {
 
     content.appendChild(project);
     content.appendChild(todo);
+    body.appendChild(header);
     body.appendChild(content);
 }
 
@@ -89,7 +94,10 @@ export const addSingleTodo = (todo) => {
 
     const date = document.createElement('p');
     date.classList.add('date');
-    date.innerHTML = todo.dueDate;
+    const year = Number(todo.dueDate.substring(0, 4));
+    const month = Number(todo.dueDate.substring(7, 5).replace('0', ''));
+    const day = Number(todo.dueDate.substring(10, 8).replace('0', ''));
+    date.innerHTML = format(new Date(year, month, day), 'dd MMM');
 
     const priority = document.createElement('p');
     priority.classList.add('priority');
@@ -191,13 +199,13 @@ export const newTodoInterface = (project) => {
 
     const priority = document.createElement('select');
     const low = document.createElement('option');
-    low.setAttribute('value', 'low');
+    low.setAttribute('value', 'Low');
     low.innerHTML = 'Low';
     const medium = document.createElement('option');
-    medium.setAttribute('value', 'medium');
+    medium.setAttribute('value', 'Medium');
     medium.innerHTML = 'Medium';
     const high = document.createElement('option');
-    high.setAttribute('value', 'high');
+    high.setAttribute('value', 'High');
     high.innerHTML = 'High';
     priority.appendChild(low);
     priority.appendChild(medium);
@@ -265,13 +273,13 @@ export const editTodoInterface = (project, todo) => {
 
     const priority = document.createElement('select');
     const low = document.createElement('option');
-    low.setAttribute('value', 'low');
+    low.setAttribute('value', 'Low');
     low.innerHTML = 'Low';
     const medium = document.createElement('option');
-    medium.setAttribute('value', 'medium');
+    medium.setAttribute('value', 'Medium');
     medium.innerHTML = 'Medium';
     const high = document.createElement('option');
-    high.setAttribute('value', 'high');
+    high.setAttribute('value', 'High');
     high.innerHTML = 'High';
     priority.appendChild(low);
     priority.appendChild(medium);
